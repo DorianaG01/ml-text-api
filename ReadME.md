@@ -1,7 +1,7 @@
 # ML Text Preprocessing API
 
 Microservizio REST sviluppato con **FastAPI** per la normalizzazione e l'analisi di testi.
-Il progetto simula un componente di una pipeline ML, separando la logica di business (TextProcessor) dall'interfaccia web.
+Il progetto simula un componente di una pipeline ML, separando la logica di TextProcessor dall'interfaccia web.
 
 ## Struttura del Progetto
 
@@ -20,7 +20,7 @@ ml-text-api/
 * **Pulizia Testo:** Rimozione caratteri speciali, normalizzazione spazi, lowercase.
 * **Analisi:** Conteggio parole e caratteri.
 * **Sicurezza:** Autenticazione tramite API Key header.
-* **Fault Tolerance:** Validazione input rigorosa tramite Pydantic.
+* **Fault Tolerance:** Validazione input tramite Pydantic.
 * **Containerizzazione:** Docker ready.
 
 ## Requisiti
@@ -30,8 +30,7 @@ ml-text-api/
 
 ## Installazione ed Esecuzione
 
-### Metodo 1: Docker (Consigliato)
-Il modo più veloce per avviare il servizio senza configurare l'ambiente locale.
+### Metodo 1: Docker 
 
 ```bash
 # 1. Costruisci l'immagine
@@ -42,7 +41,6 @@ docker run -d -p 8000:8000 --name ml-container ml-api-image
 ```
 
 ### Metodo 2: Sviluppo Locale
-Se vuoi modificare il codice o eseguire il progetto senza container:
 
 ```bash
 # 1. Crea e attiva l'ambiente virtuale
@@ -67,9 +65,7 @@ Ogni richiesta deve includere l'header `access_token`.
 * **URL Base:** `http://127.0.0.1:8000`
 
 ### Esempio di chiamata (cURL)
-Puoi testare l'endpoint `/process` dal terminale:
-
-
+Si può testare l'endpoint `/process` dal terminale:
 
 ```bash
 curl -X 'POST' \
@@ -86,7 +82,6 @@ curl -X 'POST' \
 
 ## Documentazione Interattiva
 
-Una volta avviato il server, puoò esplorare e testare le API direttamente dal browser:
+Una volta avviato il server, può esplorare e testare le API direttamente dal browser:
 
 * **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-* **ReDoc:** [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
