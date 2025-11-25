@@ -1,52 +1,52 @@
 from fastapi import FastAPI, HTTPException, Depends, Security, status
-from fastapi.security import APIKeyHeader  
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
 from app.processor import TextProcessor
 import os
 
-# Inizializzazione dell'app FastAPI
+# Initialize FastAPI app
 app = FastAPI(
     title="ML Preprocessing API",
-    description="API REST sicura per la normalizzazione del testo.",
+    description="Secure REST API for text normalization.",
     version="1.0.0"
 )
 
-# Configurazione API Key Header
+# API Key Header configuration
 API_KEY_NAME = "access_token"
-api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False) 
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
-# in un'app reale andrebbe caricata da una variabile d'ambiente e non scritta nel codice
+# In a real app, this should be loaded from an environment variable, not hardcoded
 REAL_SECRET_KEY = "super-segreto-123"
 
 async def get_api_key(api_key_header: str = Security(api_key_header)):
-   
-    #Funzione di dipendenza che controlla se la chiave è valida.
-   
+    
+    # Dependency function that checks if the key is valid.
+    
     if api_key_header == REAL_SECRET_KEY:
         return api_key_header
     else:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Credenziali non valide (Manca API Key o è errata)"
+            detail="Invalid credentials (Missing API Key or wrong key)"
         )
 
-# Modello di richiesta
+# Request model
 class TextRequest(BaseModel):
-    text: str = Field(..., min_length=1, description="Il testo da processare") 
-    remove_digits: bool = Field(False, description="Se True, rimuove i numeri")
+    text: str = Field(..., min_length=1, description="The text to process")
+    remove_digits: bool = Field(False, description="If True, removes numbers")
 
-# Modello di risposta
+# Response model
 class TextResponse(BaseModel):
     original_text: str
     processed_text: str
     stats: dict
     status: str
 
-# Endpoint per processare il testo
+# Endpoint to process text
 @app.post("/process", response_model=TextResponse, dependencies=[Depends(get_api_key)])
 def process_text(request: TextRequest):
     try:
-        processor = TextProcessor(remove_digits=request.remove_digits) 
+        processor = TextProcessor(remove_digits=request.remove_digits)
         clean_result = processor.clean_text(request.text)
         stats = processor.analyze_stats(clean_result)
         
@@ -59,6 +59,6 @@ def process_text(request: TextRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/health")  # Endpoint di health check
+@app.get("/health")  # Health check endpoint
 def health_check():
     return {"status": "ok"}
