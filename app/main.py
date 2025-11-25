@@ -15,7 +15,7 @@ app = FastAPI(
 API_KEY_NAME = "access_token"
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False) 
 
-# Questa è la vera chiave segreta, in un'app reale andrebbe caricata da una variabile d'ambiente e non scritta nel codice
+# in un'app reale andrebbe caricata da una variabile d'ambiente e non scritta nel codice
 REAL_SECRET_KEY = "super-segreto-123"
 
 async def get_api_key(api_key_header: str = Security(api_key_header)):
