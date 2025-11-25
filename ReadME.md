@@ -15,7 +15,7 @@ ml-text-api/
 └── README.md            # Documentazione
 ```
 
-##  Funzionalità
+## Funzionalità
 
 * **Pulizia Testo:** Rimozione caratteri speciali, normalizzazione spazi, lowercase.
 * **Analisi:** Conteggio parole e caratteri.
@@ -23,12 +23,12 @@ ml-text-api/
 * **Fault Tolerance:** Validazione input rigorosa tramite Pydantic.
 * **Containerizzazione:** Docker ready.
 
-##  Requisiti
+## Requisiti
 
 * Python 3.10+
 * Docker (Opzionale)
 
-##  Installazione ed Esecuzione
+## Installazione ed Esecuzione
 
 ### Metodo 1: Docker (Consigliato)
 Il modo più veloce per avviare il servizio senza configurare l'ambiente locale.
@@ -40,6 +40,7 @@ docker build -t ml-api-image .
 # 2. Avvia il container sulla porta 8000
 docker run -d -p 8000:8000 --name ml-container ml-api-image
 ```
+
 ### Metodo 2: Sviluppo Locale
 Se vuoi modificare il codice o eseguire il progetto senza container:
 
@@ -56,7 +57,7 @@ uvicorn app.main:app --reload
 
 ```
 
-```markdown
+
 ## Utilizzo e Sicurezza
 
 L'API è protetta tramite autenticazione Header.
@@ -68,7 +69,7 @@ Ogni richiesta deve includere l'header `access_token`.
 ### Esempio di chiamata (cURL)
 Puoi testare l'endpoint `/process` dal terminale:
 
-```
+
 
 ```bash
 curl -X 'POST' \
@@ -83,11 +84,9 @@ curl -X 'POST' \
 ```
 
 
-```markdown
 ## Documentazione Interattiva
 
 Una volta avviato il server, puoò esplorare e testare le API direttamente dal browser:
 
 * **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 * **ReDoc:** [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
-```
